@@ -69,5 +69,27 @@ var dlink_loop = func {
     }
 }
 
+
+# situalawareness system
+# we search through all MPcallsigns
+
+var readcallsign = func(callsign) {
+    if (getprop("instrumentation/datalink/data") != 0) {
+        return;
+    }
+    data = datalink.get_data(callsign);
+    if (data != nil and data.on_link()){
+        var coord = data.point();
+        if (coord != nil) {
+            sending = nil;
+            var reclat = data.lat();
+            var reclon = data.lon();
+            var recalt = data.alt()*M2FT;
+            # Data is from the callsign. now we do somthing with it here...
+            # setprop("datalink/friendlyposlat", lat)
+        }
+    }
+}
+
 var timer = maketimer(3.5, dlink_loop);
 timer.start();
