@@ -1,3 +1,29 @@
+# Custom made Mini Multiplayer MPID searcher
+# Even smaller misc-searcher
+
+# example of use
+
+# smallsearch("Phoenix");
+# func returns mpid of "Phoenix"
+
+var smallsearch = func(cs=nil) {
+  var list = props.globals.getNode("/ai/models").getChildren("multiplayer");
+  var total = size(list);
+  var mpid = 0;
+  for(var i = 0; i < total; i += 1) {
+      if (cs != nil) {
+      # were searching for someone...
+      if (getprop("ai/models/multiplayer[" ~ i ~ "]/callsign") == cs) {
+          # we have our number
+          print(mpid);
+          mpid = i;
+          return mpid; # Bam!
+     }
+      var callsign = list[i].getNode("callsign").getValue();
+     }
+   }
+}
+
 # Coord stuff
 # code inspired from f16 
 
